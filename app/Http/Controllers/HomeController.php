@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Item;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $categories = Category::all();
+        $items = Item::all();
+        return view('home',compact('categories','items'));
+    }
+
+    public function getItems()
+    {
+        $items = Item::all();
+        return response()->json(['items'=>$items],200);
     }
 }
